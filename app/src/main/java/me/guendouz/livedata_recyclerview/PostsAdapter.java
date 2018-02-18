@@ -60,9 +60,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
             data.addAll(newData);
             diffResult.dispatchUpdatesTo(this);
         }
-
-        this.data = newData;
-        notifyDataSetChanged();
     }
 
     class PostViewHolder extends RecyclerView.ViewHolder {
