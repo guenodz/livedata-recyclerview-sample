@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import me.guendouz.livedata_recyclerview.db.Post;
@@ -28,8 +29,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
     private LayoutInflater layoutInflater;
     private OnDeleteButtonClickListener onDeleteButtonClickListener;
 
-    public PostsAdapter(List<Post> data, Context context, OnDeleteButtonClickListener listener) {
-        this.data = data;
+    public PostsAdapter(Context context, OnDeleteButtonClickListener listener) {
+        this.data = new ArrayList<>();
         this.context = context;
         this.onDeleteButtonClickListener = listener;
         this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -59,6 +60,9 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
             data.clear();
             data.addAll(newData);
             diffResult.dispatchUpdatesTo(this);
+        } else {
+            // first initialization
+            data = newData;
         }
     }
 

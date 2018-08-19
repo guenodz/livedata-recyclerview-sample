@@ -1,6 +1,8 @@
 package me.guendouz.livedata_recyclerview;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -10,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+
+import java.util.List;
 
 import me.guendouz.livedata_recyclerview.db.Post;
 
@@ -27,17 +31,16 @@ public class MainActivity extends AppCompatActivity implements PostsAdapter.OnDe
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        postViewModel = ViewModelProviders.of(this).get(PostViewModel.class);
+        postsAdapter = new PostsAdapter(this, this);
 
-        postsAdapter = new PostsAdapter(postViewModel.getAllPosts().getValue(), this, this);
+        postViewModel = ViewModelProviders.of(this).get(PostViewModel.class);
+        postViewModel.getAllPosts().observe(this, posts -> postsAdapter.setData(posts));
 
         RecyclerView recyclerView = findViewById(R.id.rvPostsLis);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(postsAdapter);
-
-        postViewModel.getAllPosts().observe(this, posts -> postsAdapter.setData(posts));
     }
 
     @Override
