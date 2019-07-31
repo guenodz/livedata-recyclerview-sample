@@ -40,4 +40,8 @@ public class PostViewModel extends AndroidViewModel {
     void deletePost(Post post) {
         executorService.execute(() -> postDao.delete(post));
     }
+
+    List<Post> searchPost(String query) {
+        return postDao.findSearchValue(query);
+    }
 }

@@ -4,6 +4,7 @@ import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.migration.Migration;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
@@ -15,7 +16,7 @@ import java.util.concurrent.Executors;
  * Created by guendouz on 15/02/2018.
  */
 
-@Database(entities = {Post.class}, version = 1)
+@Database(entities = {Post.class}, version = 2 ,exportSchema = false)
 public abstract class PostsDatabase extends RoomDatabase {
 
     private static PostsDatabase INSTANCE;
@@ -40,6 +41,14 @@ public abstract class PostsDatabase extends RoomDatabase {
 
     private static final Object sLock = new Object();
 
+    /*static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE posts_db "
+                    +"ADD COLUMN  TEXT");
+
+        }
+    };*/
     public static PostsDatabase getInstance(Context context) {
         synchronized (sLock) {
             if (INSTANCE == null) {

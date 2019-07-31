@@ -29,6 +29,9 @@ public interface PostDao {
     @Delete
     void delete(Post post);
 
-    @Query("SELECT * FROM Post")
+    @Query("SELECT * FROM posts_db")
     LiveData<List<Post>> findAll();
+
+    @Query("SELECT * FROM posts_db WHERE post_title LIKE :query OR post_content LIKE :query")
+    List<Post> findSearchValue(String query);
 }
