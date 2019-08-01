@@ -3,4 +3,13 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="app_red">#e2231a</color>           <!--app_color-->
+    <color name="app_white">#ffffff</color>         <!--backgroud-->
+    <color name="app_dark_black">#000000</color>
+    <color name="app_soft_black">#222831</color>    <!--title color-->
+    <color name="app_grey">#9e9e9e</color>          <!--text_color-->
+    <color name="app_soft_grey">#efefef</color>     <!--border_line_color-->
+    <color name="app_blue">#2196f3</color>
+    <color name="app_white_fade">#9AFFFFFF</color>
 </resources>
