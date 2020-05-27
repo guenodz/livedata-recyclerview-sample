@@ -1,18 +1,21 @@
 package me.guendouz.livedata_recyclerview.db;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Ignore;
-import android.arch.persistence.room.PrimaryKey;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 
 /**
  * Created by guendouz on 15/02/2018.
  */
 
-@Entity
+@Entity(tableName = "posts_db")
 public class Post {
     @PrimaryKey(autoGenerate = true)
     private int id;
+    @ColumnInfo(name = "post_title")
     private String title;
+    @ColumnInfo(name = "post_content")
     private String content;
 
     public Post() {

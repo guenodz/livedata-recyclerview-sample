@@ -1,18 +1,20 @@
 package me.guendouz.livedata_recyclerview;
 
 import android.content.Context;
-import android.support.v7.util.DiffUtil;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import me.guendouz.livedata_recyclerview.db.Post;
+import me.guendouz.livedata_recyclerview.listener.ButtonClickListener;
 
 /**
  * Created by guendouz on 15/02/2018.
@@ -20,16 +22,13 @@ import me.guendouz.livedata_recyclerview.db.Post;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHolder> {
 
-    public interface OnDeleteButtonClickListener {
-        void onDeleteButtonClicked(Post post);
-    }
 
     private List<Post> data;
     private Context context;
     private LayoutInflater layoutInflater;
-    private OnDeleteButtonClickListener onDeleteButtonClickListener;
+    private ButtonClickListener onDeleteButtonClickListener;
 
-    public PostsAdapter(Context context, OnDeleteButtonClickListener listener) {
+    public PostsAdapter(Context context, ButtonClickListener listener) {
         this.data = new ArrayList<>();
         this.context = context;
         this.onDeleteButtonClickListener = listener;
@@ -54,12 +53,13 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
 
     public void setData(List<Post> newData) {
         if (data != null) {
-            PostDiffCallback postDiffCallback = new PostDiffCallback(data, newData);
-            DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(postDiffCallback);
+            /*PostDiffCallback postDiffCallback = new PostDiffCallback(data, newData);
+            DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(postDiffCallback);*/
 
             data.clear();
             data.addAll(newData);
-            diffResult.dispatchUpdatesTo(this);
+            notifyDataSetChanged();
+            //diffResult.dispatchUpdatesTo(this);
         } else {
             // first initialization
             data = newData;

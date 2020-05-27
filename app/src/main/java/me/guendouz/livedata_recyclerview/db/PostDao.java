@@ -1,12 +1,12 @@
 package me.guendouz.livedata_recyclerview.db;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Delete;
-import android.arch.persistence.room.Insert;
-import android.arch.persistence.room.OnConflictStrategy;
-import android.arch.persistence.room.Query;
-import android.arch.persistence.room.Update;
+import androidx.lifecycle.LiveData;
+import androidx.room.Dao;
+import androidx.room.Delete;
+import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
+import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -29,6 +29,9 @@ public interface PostDao {
     @Delete
     void delete(Post post);
 
-    @Query("SELECT * FROM Post")
+    @Query("SELECT * FROM posts_db")
     LiveData<List<Post>> findAll();
+
+    @Query("SELECT * FROM posts_db WHERE post_title LIKE '%' || :query || '%' OR post_content LIKE '%' || :query || '%'")
+    LiveData<List<Post>> findSearchValue(String query);
 }
